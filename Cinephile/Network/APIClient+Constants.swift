@@ -13,7 +13,10 @@ extension APIClient {
 
     // MARK: - API URL
 
-    // App version info
+    // oauth
     static let oauthUrl = "oauth/authorize"
     static let tokenUrl = "oauth/token"
+    
+    // Movies
+    static let moviesTrendingUrl = "movies/trending"
 }

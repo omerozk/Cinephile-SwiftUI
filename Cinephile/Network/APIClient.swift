@@ -28,15 +28,18 @@ final class RequestInterceptor: Alamofire.RequestInterceptor {
     }
     
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-        guard urlRequest.url?.absoluteString.hasPrefix(APIClient.hostUrl) == true,
-            let signedRequest = try? urlRequest.signed(with: loader.oauth2) else {
+        // if a API URLs
+        guard urlRequest.url?.absoluteString.hasPrefix(APIClient.hostUrl) == true else {
             /// If the request requires authentication, we can directly return it as unmodified.
             return completion(.success(urlRequest))
         }
-//        var urlRequest = urlRequest
-        
-        /// Set the Authorization header value using the access token.
-//        urlRequest.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+
+        var signedRequest = urlRequest
+        try? signedRequest.sign(with: loader.oauth2)
+        guard signedRequest.allHTTPHeaderFields?.keys.contains("Authorization") == true else {
+            /// If the request requires authentication, we can directly return it as unmodified.
+            return completion(.success(urlRequest))
+        }
 
         completion(.success(signedRequest))
     }
@@ -51,7 +54,6 @@ final class RequestInterceptor: Alamofire.RequestInterceptor {
         
         var dataRequest = OAuth2DataRequest(request: urlRequest, callback: { _ in })
         dataRequest.context = completion
-        
         loader.enqueue(request: dataRequest)
         loader.attemptToAuthorize { (params, error) in
             guard error?.asOAuth2Error != .alreadyAuthorizing else {
@@ -68,14 +70,6 @@ final class RequestInterceptor: Alamofire.RequestInterceptor {
                 if let comp = req.context as? (RetryResult) -> Void {
                     comp(.retry)
                 }
-//                var request = req.request
-//                do {
-//                    try request.sign(with: self.loader.oauth2)
-//                    self.loader.perform(request: request, retry: false, callback: req.callback)
-//                }
-//                catch let error {
-//                    NSLog("OAuth2.DataLoader.retryAll(): \(error)")
-//                }
             }
         }
     }
@@ -107,6 +101,8 @@ class APIClient {
     private func getHeaders(contentType: String = "application/json") -> HTTPHeaders {
         var headers = HTTPHeaders()
         headers.add(HTTPHeader(name: "Content-Type", value: contentType))
+        headers.add(HTTPHeader(name: "trakt-api-version", value: "2"))
+        headers.add(HTTPHeader(name: "trakt-api-key", value: APIClient.clientId))
        return headers
     }
     

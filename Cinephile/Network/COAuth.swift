@@ -26,5 +26,13 @@ extension APIClient {
         oauth2.logger = OAuth2DebugLogger(.trace)
         return oauth2
     }
-
+    
+    func cleanOAuth2Data() {
+        // delete credential from keychain
+        self.oauth2.forgetTokens()
+    
+        // delete cookies to reload login page from Safari
+        let storage = HTTPCookieStorage.shared
+        storage.cookies?.forEach() { storage.deleteCookie($0) }
+    }
 }
