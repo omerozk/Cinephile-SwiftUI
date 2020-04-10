@@ -10,46 +10,34 @@ import Foundation
 import SwiftUI
 import CoreLocation
 
-struct Movie: Hashable, Codable, Identifiable {
+struct MediaIds {
     var id: Int
-    var name: String
-    fileprivate var imageName: String
-    fileprivate var coordinates: Coordinates
-    var state: String
-    var park: String
-    var category: Category
+    var slug: String?
+    var imdb: String?
+    var tmdb: Int?
+    var tvdb: Int?
+}
 
-    var locationCoordinate: CLLocationCoordinate2D {
-        CLLocationCoordinate2D(
-            latitude: coordinates.latitude,
-            longitude: coordinates.longitude)
-    }
+protocol Media: Identifiable {
+    var ids: MediaIds { get }
+    var id: Int { get }
+}
+
+struct Movie: Media {
+    var ids: MediaIds
+    var id: Int { ids.id }
+    var title: String
+    var year: Int
     
-    init(id: Int, name: String) {
-        self.id = id
-        self.name = name
-        imageName = "omer"
-        coordinates = Coordinates(latitude: 0, longitude: 0)
-        state = "SSD"
-        park = "pakr"
-        category = .lakes
-    }
-
-    enum Category: String, CaseIterable, Codable, Hashable {
-        case featured = "Featured"
-        case lakes = "Lakes"
-        case rivers = "Rivers"
-    }
+//    init(year: Int, title: String) {
+//        self.title = title
+//        self.year = year
+//    }
 }
 
-extension Movie {
-    var image: Image {
-        Image(imageName)
-//        ImageStore.shared.image(name: imageName)
-    }
-}
-
-struct Coordinates: Hashable, Codable {
-    var latitude: Double
-    var longitude: Double
-}
+//extension Movie {
+//    var image: Image {
+////        Image(imageName)
+////        ImageStore.shared.image(name: imageName)
+//    }
+//}
