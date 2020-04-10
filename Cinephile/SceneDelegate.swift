@@ -58,7 +58,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
+    
 
+    // MARK: URL Scheme
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        // Process the URL.
+        for urlContext in URLContexts {
+            let url = urlContext.url
+            guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
+                components.host == "authorize" else {
+                    return
+            }
+            APIClient.shared.handleRedirectURL(url)
+        }
+    }
 
 }
 

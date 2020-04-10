@@ -8,7 +8,9 @@
 
 import Foundation
 import Alamofire
+import OAuth2
 
+// embed DataRequest which is a Alamofire library type
 class CRequest {
     var request: DataRequest?
     
@@ -17,16 +19,84 @@ class CRequest {
     }
 }
 
+final class RequestInterceptor: Alamofire.RequestInterceptor {
+
+    let loader: OAuth2DataLoader
+    
+    init(oauth2: OAuth2) {
+        loader = OAuth2DataLoader(oauth2: oauth2)
+    }
+    
+    func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+        guard urlRequest.url?.absoluteString.hasPrefix(APIClient.hostUrl) == true,
+            let signedRequest = try? urlRequest.signed(with: loader.oauth2) else {
+            /// If the request requires authentication, we can directly return it as unmodified.
+            return completion(.success(urlRequest))
+        }
+//        var urlRequest = urlRequest
+        
+        /// Set the Authorization header value using the access token.
+//        urlRequest.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+
+        completion(.success(signedRequest))
+    }
+    
+    func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+        guard let response = request.task?.response as? HTTPURLResponse, let urlRequest = request.request,
+            response.statusCode == 401 else {
+            /// The request did not fail due to a 401 Unauthorized response.
+            /// Return the original error and don't retry the request.
+            return completion(.doNotRetryWithError(error))
+        }
+        
+        var dataRequest = OAuth2DataRequest(request: urlRequest, callback: { _ in })
+        dataRequest.context = completion
+        
+        loader.enqueue(request: dataRequest)
+        loader.attemptToAuthorize { (params, error) in
+            guard error?.asOAuth2Error != .alreadyAuthorizing else {
+                // Don't dequeue requests if we are waiting for other authorization request
+                return
+            }
+            guard let params = params else {
+                print("Authorization was canceled or went wrong: \(String(describing: error))")   // error will not be nil
+                return completion(.doNotRetry)
+            }
+            print("Authorized! Access token is in `oauth2.accessToken`")
+            print("Authorized! Additional parameters: \(params)")
+            self.loader.dequeueAndApply { (req) in
+                if let comp = req.context as? (RetryResult) -> Void {
+                    comp(.retry)
+                }
+//                var request = req.request
+//                do {
+//                    try request.sign(with: self.loader.oauth2)
+//                    self.loader.perform(request: request, retry: false, callback: req.callback)
+//                }
+//                catch let error {
+//                    NSLog("OAuth2.DataLoader.retryAll(): \(error)")
+//                }
+            }
+        }
+    }
+    
+}
+
 class APIClient {
     private var sessionManager: Alamofire.Session!
-    
+    var oauth2: OAuth2CodeGrant!
+
     static var shared: APIClient = {
         let apiClient = APIClient()
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 30
         configuration.timeoutIntervalForResource = 600 // 10min
 
-        apiClient.sessionManager = Session(configuration: configuration)
+        apiClient.oauth2 = APIClient.makeOAuth2CodeGrant()
+        let interceptor = RequestInterceptor(oauth2: apiClient.oauth2)
+        let session = Session(configuration: configuration, interceptor: interceptor)
+        apiClient.sessionManager = session
+        
         return apiClient
     }()
     
@@ -40,6 +110,26 @@ class APIClient {
        return headers
     }
     
+    func authorizeUser(successBlock: (() -> Void)? = nil,
+                       failureBlock: ((_ error: NSError) -> Void)? = nil) -> Void {
+        oauth2.authorize { (params, error) in
+            guard error == nil else {
+                print("Authorization was canceled or went wrong: \(String(describing: error))")
+                failureBlock?(NSError())
+                return
+            }
+            guard let params = params else { failureBlock?(NSError()); return }
+            
+            print("Authorized! Access token is in `oauth2.accessToken`")
+            print("Authorized! Additional parameters: \(params)")
+            successBlock?()
+        }
+    }
+    
+    func handleRedirectURL(_ redirect: URL) {
+        oauth2.handleRedirectURL(redirect)
+    }
+    
     @discardableResult func doRequest(method: Alamofire.HTTPMethod, urlPath: String,
                                       parameters: [String: Any]? = nil,
                                       successHandler: @escaping () -> Void,
@@ -47,7 +137,7 @@ class APIClient {
 //        guard isNetworkReachable else { failureHandler(APIError.noInternetError()); return nil }
         // forget password is not associated to the api... so we don't add tha api version
         let encoding: ParameterEncoding = Alamofire.JSONEncoding.default
-        let baseUrl = APIClient.hostURL
+        let baseUrl = APIClient.hostUrl
         let urlComplete = urlPath.contains(baseUrl) ? urlPath : baseUrl + urlPath
         let headers = getHeaders()
 
@@ -55,7 +145,7 @@ class APIClient {
                                              encoding: encoding, headers: headers)
         
         // for forgot password there is an error "error Invalid value around character 0" because return html string...
-        request.responseJSON { (response) in
+        request.validate().responseJSON { (response) in
             print("\(method.rawValue.uppercased()): \(response.response?.statusCode ?? 0): " +
                 "\(urlComplete)  \n  ----  \n response: \(response)")
 //            self.manageResponse(response: response, successHandler: successHandler,

@@ -9,13 +9,11 @@
 import Foundation
 
 extension APIClient {
-    static let clientId = ""
-
-    static let hostURL = "https://api.trakt.tv/"
+    static let hostUrl = "https://api.trakt.tv/"
 
     // MARK: - API URL
 
     // App version info
     static let oauthUrl = "oauth/authorize"
-
+    static let tokenUrl = "oauth/token"
 }

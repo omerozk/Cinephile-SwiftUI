@@ -1,5 +1,5 @@
 //
-//  APIClient+authenticate.swift
+//  APIClient+key.swift
 //  Cinephile
 //
 //  Created by omer ozkul on 10/04/2020.
@@ -9,8 +9,6 @@
 import Foundation
 
 extension APIClient {
-    
-    func authorize() {
-        
-    }
+    static let clientId = ""
+    static let clientSecret = ""
 }
