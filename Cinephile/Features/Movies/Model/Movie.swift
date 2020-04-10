@@ -35,9 +35,9 @@ struct Movie: Media {
 //    }
 }
 
-//extension Movie {
-//    var image: Image {
-////        Image(imageName)
-////        ImageStore.shared.image(name: imageName)
-//    }
-//}
+extension Movie {
+    var image: Image {
+        Image("omer")
+//        ImageStore.shared.image(name: imageName)
+    }
+}

@@ -16,7 +16,7 @@ struct MovieRow: View {
             movie.image
                 .resizable()
                 .frame(width: 50, height: 50)
-            Text(movie.name)
+            Text(movie.title)
             Spacer()
         }
         .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))

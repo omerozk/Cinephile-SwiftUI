@@ -13,7 +13,7 @@ struct MediaDetailView: View {
     
     var body: some View {
         Text("Detail")
-            .navigationBarTitle(Text(movie.name), displayMode: .inline)
+            .navigationBarTitle(Text(movie.title), displayMode: .inline)
     }
 
 }
@@ -21,7 +21,7 @@ struct MediaDetailView: View {
 struct MediaDetailView_Previews: PreviewProvider {
     static var previews: some View {
         ForEach(["iPhone SE", "iPhone XS Max"], id: \.self) { deviceName in
-            MediaDetailView(movie: Movie(id: 0, name: "lol"))
+            MediaDetailView(movie: Movie(ids: MediaIds(id: 0), title: "black jack", year: 2010))
                 .previewDevice(PreviewDevice(rawValue: deviceName))
                 .previewDisplayName(deviceName)
         }

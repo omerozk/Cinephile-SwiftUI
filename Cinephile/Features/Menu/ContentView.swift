@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-let moviesList: [Movie] = [Movie(id: 1, name: "avenger"), Movie(id: 2, name: "pokemon"), Movie(id: 3, name: "Star wars")]
+let moviesList: [Movie] = []
 
 struct ContentView: View {
     @State private var selection = 0
