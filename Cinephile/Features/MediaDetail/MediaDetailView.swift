@@ -12,10 +12,18 @@ struct MediaDetailView: View {
     var movie: Movie
     
     var body: some View {
-        Text("Detail")
-            .navigationBarTitle(Text(movie.title), displayMode: .inline)
+        ScrollView {
+            VStack(alignment: .leading) {
+                ParallaxHeaderView(image: Image("omer"))
+                MediaHeaderView()
+                    .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
+                MediaDetailContentView()
+                    .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+            }
+        }
+        .edgesIgnoringSafeArea(.top)
+        .navigationBarTitle(Text(movie.title), displayMode: .inline)
     }
-
 }
 
 struct MediaDetailView_Previews: PreviewProvider {
