@@ -128,7 +128,7 @@ class APIClient {
     
     @discardableResult func doRequest(method: Alamofire.HTTPMethod, urlPath: String,
                                       parameters: [String: Any]? = nil,
-                                      successHandler: @escaping () -> Void,
+                                      successHandler: @escaping (Data) -> Void,
                                       failureHandler: @escaping () -> Void) -> CRequest? {
 //        guard isNetworkReachable else { failureHandler(APIError.noInternetError()); return nil }
         // forget password is not associated to the api... so we don't add tha api version
@@ -141,12 +141,21 @@ class APIClient {
                                              encoding: encoding, headers: headers)
         
         // for forgot password there is an error "error Invalid value around character 0" because return html string...
-        request.validate().responseJSON { (response) in
+        request.validate().responseString { (response) in
             print("\(method.rawValue.uppercased()): \(response.response?.statusCode ?? 0): " +
                 "\(urlComplete)  \n  ----  \n response: \(response)")
-//            self.manageResponse(response: response, successHandler: successHandler,
-//                                failureHandler: failureHandler)
+            self.manageResponse(response: response, successHandler: successHandler,
+                                failureHandler: failureHandler)
         }
         return CRequest(request: request)
+    }
+    
+    private func manageResponse(response: AFDataResponse<String>,
+                                successHandler: @escaping (Data) -> Void,
+                                failureHandler: @escaping () -> Void) {
+        guard let urlResponse = response.response else { return failureHandler() }
+        let res = response.value ?? ""
+        let data = res.data(using: .utf8)!
+        successHandler(data)
     }
 }

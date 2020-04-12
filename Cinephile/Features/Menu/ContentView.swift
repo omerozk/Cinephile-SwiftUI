@@ -8,14 +8,12 @@
 
 import SwiftUI
 
-let moviesList: [Movie] = []
-
 struct ContentView: View {
     @State private var selection = 0
  
     var body: some View {
         TabView(selection: $selection){
-            MoviesView()
+            MoviesView(viewModel: MoviesView.MoviesViewModel())
                 .tabItem {
                     VStack {
                         Image("first")
@@ -32,15 +30,14 @@ struct ContentView: View {
                     }
                 }
                 .tag(1)
-            Text("News")
-                .font(.title)
+            MoviesView(viewModel: MoviesView.MoviesViewModel())
                 .tabItem {
                     VStack {
-                        Image("second")
-                        Text("News")
+                        Image("first")
+                        Text("Trending")
                     }
-                }
-                .tag(2)
+            }
+            .tag(2)
             ProfileView()
                 .tabItem {
                     VStack {

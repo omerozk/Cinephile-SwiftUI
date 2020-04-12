@@ -19,4 +19,5 @@ extension APIClient {
     
     // Movies
     static let moviesTrendingUrl = "movies/trending"
+    static let moviesPopularUrl = "movies/popular"
 }

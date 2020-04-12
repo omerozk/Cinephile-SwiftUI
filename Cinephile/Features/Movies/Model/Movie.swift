@@ -10,7 +10,13 @@ import Foundation
 import SwiftUI
 import CoreLocation
 
-struct MediaIds {
+struct MediaIds: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case slug, imdb, tmdb, tvdb
+        // Map the JSON key "url" to the Swift property name "htmlLink"
+        case id = "trakt"
+    }
+
     var id: Int
     var slug: String?
     var imdb: String?
@@ -23,9 +29,9 @@ protocol Media: Identifiable {
     var id: Int { get }
 }
 
-struct Movie: Media {
+struct Movie: Decodable {
     var ids: MediaIds
-    var id: Int { ids.id }
+//    var id: Int { ids.id }
     var title: String
     var year: Int
     

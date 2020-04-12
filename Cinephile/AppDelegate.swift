@@ -13,10 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            APIClient.shared.authorize()
-            APIClient.shared.trendingMovies()
-        }
+        APIClient.shared.authorize()
         return true
     }
 

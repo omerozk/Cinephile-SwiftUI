@@ -9,20 +9,26 @@
 import SwiftUI
 
 struct MoviesView: View {
+    
+    @ObservedObject var viewModel: MoviesViewModel
+
     var body: some View {
         NavigationView {
-            List(moviesList, rowContent: { movie in
+            List(viewModel.movies, id: \.ids.id, rowContent: { movie in
                 NavigationLink(destination: MediaDetailView(movie: movie)) {
                     MovieRow(movie: movie)
                 }
             })
             .navigationBarTitle(Text("Movies"))
+                .onAppear {
+                    self.viewModel.loadPopularMovies()
+            }
         }
     }
 }
 
 struct MoviesView_Previews: PreviewProvider {
     static var previews: some View {
-        MoviesView()
+        MoviesView(viewModel: MoviesView.MoviesViewModel())
     }
 }

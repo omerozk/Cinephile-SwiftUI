@@ -26,8 +26,7 @@ struct MovieRow: View {
 struct MovieRow_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            MovieRow(movie: moviesList[0])
-            MovieRow(movie: moviesList[1])
+            MovieRow(movie: Movie(ids: MediaIds(id: 0), title: "Batman", year: 2010))
         }
         .previewLayout(.fixed(width: 300, height: 70))
     }
