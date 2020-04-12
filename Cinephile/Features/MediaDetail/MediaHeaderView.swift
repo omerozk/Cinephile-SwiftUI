@@ -9,30 +9,35 @@
 import SwiftUI
 
 struct MediaHeaderView: View {
+    var image: Image
+    var title: String
+    var year: Int
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Image("omer")
+                self.image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 60, height: 60)
                     .clipped()
                     .cornerRadius(10)
                 VStack(alignment: .leading) {
-                    Text("Article by")
-                        .font(.custom("AvenirNext-Regular", size: 15))
+                    Text(self.title)
+                        .font(.custom("AvenirNext-Demibold", size: 20))
+                        .lineLimit(2)
+                    Text("Release date: \(String(self.year))")
+                        .font(.custom("AvenirNext-Regular", size: 13))
                         .foregroundColor(.gray)
-                    Text("Johne Doe")
-                        .font(.custom("AvenirNext-Demibold", size: 15))
                 }
             }
-            .padding(.top, 20)
         }
     }
 }
 
 struct MediaHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        MediaHeaderView()
+        MediaHeaderView(image: Image("omer"), title: "Batman", year: 2005)
+            .previewLayout(.sizeThatFits)
     }
 }

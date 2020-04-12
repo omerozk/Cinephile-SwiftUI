@@ -15,7 +15,7 @@ struct MediaDetailView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 ParallaxHeaderView(image: Image("omer"))
-                MediaHeaderView()
+                MediaHeaderView(image: movie.image, title: movie.title, year: movie.year)
                     .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
                 MediaDetailContentView()
                     .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))

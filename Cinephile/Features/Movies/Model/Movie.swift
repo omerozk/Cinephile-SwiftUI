@@ -34,11 +34,6 @@ struct Movie: Decodable {
 //    var id: Int { ids.id }
     var title: String
     var year: Int
-    
-//    init(year: Int, title: String) {
-//        self.title = title
-//        self.year = year
-//    }
 }
 
 extension Movie {
