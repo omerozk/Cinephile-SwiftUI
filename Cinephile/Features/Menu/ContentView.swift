@@ -17,7 +17,7 @@ struct ContentView: View {
                 .tabItem {
                     VStack {
                         Image("first")
-                        Text("Movies")
+                        Text("Watched Movies")
                     }
             }
             .tag(0)
@@ -26,7 +26,7 @@ struct ContentView: View {
                 .tabItem {
                     VStack {
                         Image("second")
-                        Text("Series")
+                        Text("Watched Series")
                     }
                 }
                 .tag(1)
