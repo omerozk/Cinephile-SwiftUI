@@ -17,9 +17,11 @@ extension APIClient {
     }
     
     func popularMovies(successBlock: (([Movie]) -> Void)? = nil, failureBlock: (() -> Void)? = nil) -> Void {
-        APIClient.shared.doRequest(method: .get, urlPath: APIClient.moviesPopularUrl, successHandler: { data in
-            let movies: [Movie] = (try? JSONDecoder().decode([Movie].self, from: data)) ?? []
-            successBlock?(movies)
+        let params: [String : Any] = ["page": 1, "limit": 20, "extended": "full"]
+        APIClient.shared.doRequest(method: .get, urlPath: APIClient.moviesPopularUrl, parameters: params,
+                                   successHandler: { data in
+                                    let movies: [Movie] = (try? APIClient.shared.decoder.decode([Movie].self, from: data)) ?? []
+                                    successBlock?(movies)
         }, failureHandler: { failureBlock?() })
     }
 }

@@ -29,7 +29,7 @@ struct MediaDetailView: View {
 struct MediaDetailView_Previews: PreviewProvider {
     static var previews: some View {
         ForEach(["iPhone SE", "iPhone XS Max"], id: \.self) { deviceName in
-            MediaDetailView(movie: Movie(ids: MediaIds(id: 0), title: "black jack", year: 2010))
+            MediaDetailView(movie: Movie())
                 .previewDevice(PreviewDevice(rawValue: deviceName))
                 .previewDisplayName(deviceName)
         }
