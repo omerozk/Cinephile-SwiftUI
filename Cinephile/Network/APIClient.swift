@@ -79,6 +79,13 @@ final class RequestInterceptor: Alamofire.RequestInterceptor {
 class APIClient {
     private var sessionManager: Alamofire.Session!
     var oauth2: OAuth2CodeGrant!
+    
+    var decoder: JSONDecoder {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Full)
+        return decoder
+    }
 
     static var shared: APIClient = {
         let apiClient = APIClient()
@@ -86,6 +93,7 @@ class APIClient {
         configuration.timeoutIntervalForRequest = 30
         configuration.timeoutIntervalForResource = 600 // 10min
 
+        // oauth2
         apiClient.oauth2 = APIClient.makeOAuth2CodeGrant()
         let interceptor = RequestInterceptor(oauth2: apiClient.oauth2)
         let session = Session(configuration: configuration, interceptor: interceptor)
@@ -131,16 +139,12 @@ class APIClient {
                                       successHandler: @escaping (Data) -> Void,
                                       failureHandler: @escaping () -> Void) -> CRequest? {
 //        guard isNetworkReachable else { failureHandler(APIError.noInternetError()); return nil }
-        // forget password is not associated to the api... so we don't add tha api version
-        let encoding: ParameterEncoding = Alamofire.JSONEncoding.default
         let baseUrl = APIClient.hostUrl
         let urlComplete = urlPath.contains(baseUrl) ? urlPath : baseUrl + urlPath
         let headers = getHeaders()
 
-        let request = sessionManager.request(urlComplete, method: method, parameters: parameters,
-                                             encoding: encoding, headers: headers)
+        let request = sessionManager.request(urlComplete, method: method, parameters: parameters, headers: headers)
         
-        // for forgot password there is an error "error Invalid value around character 0" because return html string...
         request.validate().responseString { (response) in
             print("\(method.rawValue.uppercased()): \(response.response?.statusCode ?? 0): " +
                 "\(urlComplete)  \n  ----  \n response: \(response)")
