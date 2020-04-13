@@ -33,6 +33,7 @@
 		4786CD86244384FF00ACF9B0 /* ParallaxHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786CD85244384FF00ACF9B0 /* ParallaxHeaderView.swift */; };
 		4786CD882443866200ACF9B0 /* MediaDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786CD872443866200ACF9B0 /* MediaDetailContentView.swift */; };
 		4786CD8B2444D38C00ACF9B0 /* DateFormatter+iso8601Full.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786CD8A2444D38C00ACF9B0 /* DateFormatter+iso8601Full.swift */; };
+		4786CD8D2444DAE800ACF9B0 /* Date+StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786CD8C2444DAE700ACF9B0 /* Date+StringFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		4786CD85244384FF00ACF9B0 /* ParallaxHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxHeaderView.swift; sourceTree = "<group>"; };
 		4786CD872443866200ACF9B0 /* MediaDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaDetailContentView.swift; sourceTree = "<group>"; };
 		4786CD8A2444D38C00ACF9B0 /* DateFormatter+iso8601Full.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+iso8601Full.swift"; sourceTree = "<group>"; };
+		4786CD8C2444DAE700ACF9B0 /* Date+StringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+StringFormatter.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				4786CD8A2444D38C00ACF9B0 /* DateFormatter+iso8601Full.swift */,
+				4786CD8C2444DAE700ACF9B0 /* Date+StringFormatter.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4786CD8B2444D38C00ACF9B0 /* DateFormatter+iso8601Full.swift in Sources */,
+				4786CD8D2444DAE800ACF9B0 /* Date+StringFormatter.swift in Sources */,
 				470F3F66243E1D6300B8DC04 /* AppDelegate.swift in Sources */,
 				4786CD61243F792800ACF9B0 /* MoviesView.swift in Sources */,
 				4786CD822443249400ACF9B0 /* MoviesViewModel.swift in Sources */,

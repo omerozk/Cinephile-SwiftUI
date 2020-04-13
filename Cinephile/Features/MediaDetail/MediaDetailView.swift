@@ -17,7 +17,8 @@ struct MediaDetailView: View {
                 ParallaxHeaderView(image: Image("omer"))
                 MediaHeaderView(image: movie.image, title: movie.title, year: movie.year)
                     .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
-                MediaDetailContentView()
+                MediaDetailContentView(title: movie.title, runtime: movie.runtime, releaseDate: movie.releaseDate,
+                                       content: movie.overview)
                     .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
             }
         }

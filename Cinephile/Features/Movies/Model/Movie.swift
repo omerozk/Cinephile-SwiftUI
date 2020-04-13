@@ -35,6 +35,35 @@ struct Movie: Decodable {
         case other
     }
     
+    let ids: MediaIds
+    let title: String
+    let year: Int
+    
+    // full
+    let tagline: String
+    let overview: String
+    
+    private let released: String
+    var releaseDate: Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter.date(from: released) ?? Date(timeIntervalSince1970: 0)
+    }
+    
+    let runtime: Int
+    let country: String
+    private let trailer: String
+    private let homepage: String
+    let status: ReleaseStatus
+    let rating: Float
+    let votes: Int
+    let commentCount: Int
+    let updatedAt: Date
+    let language: String
+    let genres: [String]
+    let certification: String
+    
     /// mock model
     init() {
         ids = MediaIds(id: 1, slug: "deadpool", imdb: nil, tmdb: nil, tvdb: nil)
@@ -59,27 +88,6 @@ struct Movie: Decodable {
         genres = ["action","adventure","comedy","superhero"]
         certification = "R"
     }
-    
-    let ids: MediaIds
-    let title: String
-    let year: Int
-    
-    // full
-    let tagline: String
-    let overview: String
-    private let released: String // create Date object from it
-    let runtime: Int
-    let country: String
-    private let trailer: String
-    private let homepage: String
-    let status: ReleaseStatus
-    let rating: Float
-    let votes: Int
-    let commentCount: Int
-    let updatedAt: Date
-    let language: String
-    let genres: [String]
-    let certification: String
 }
 
 extension Movie {

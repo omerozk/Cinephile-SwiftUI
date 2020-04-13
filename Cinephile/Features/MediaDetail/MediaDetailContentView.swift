@@ -9,34 +9,37 @@
 import SwiftUI
 
 struct MediaDetailContentView: View {
-    let articleContent =
-    """
-    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-    At vero eos et accusam et justo duo dolores et ea rebum.
-    Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-    """
+    let title: String
+    let runtime: Int
+    let releaseDate: Date
+    let content: String
+    
+    private var formatedDate: String {
+        return Date().toString(dateFormat: "E, dd MMM yyyy")
+    }
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Lorem ipsum dolor sit amet")
+            Text(title)
                 .font(.custom("AvenirNext-Bold", size: 30))
                 .lineLimit(nil)
                 .padding(.top, 10)
-            Text("3 min read • 22. November 2019")
+            Text("\(formatedDate)   •   \(runtime) min")
                 .font(.custom("AvenirNext-Regular", size: 15))
                 .foregroundColor(.gray)
-                .padding(.top, 10)
-            Text(articleContent)
+                .padding(.top, 4)
+            Text(content)
                 .font(.custom("AvenirNext-Regular", size: 20))
                 .lineLimit(nil)
-                .padding(.top, 30)
+                .padding(.top, 20)
         }
     }
 }
 
 struct MediaDetailContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MediaDetailContentView()
+        let movie = Movie()
+        return MediaDetailContentView(title: movie.title, runtime: movie.runtime,
+                                      releaseDate: movie.releaseDate, content: movie.overview)
     }
 }
