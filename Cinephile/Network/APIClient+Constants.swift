@@ -16,7 +16,10 @@ extension APIClient {
     // oauth
     static let oauthUrl = "oauth/authorize"
     static let tokenUrl = "oauth/token"
-    
+
+    // User
+    static let userProfileUrl = "users/me"
+
     // Movies
     static let moviesTrendingUrl = "movies/trending"
     static let moviesPopularUrl = "movies/popular"

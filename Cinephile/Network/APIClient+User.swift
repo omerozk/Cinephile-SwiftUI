@@ -10,7 +10,14 @@ import Foundation
 
 extension APIClient {
     
-    func authorize(successBlock: (() -> Void)? = nil, failureBlock: ((_ error: NSError) -> Void)? = nil) -> Void {
-        APIClient.shared.authorizeApiClient(successBlock: successBlock, failureBlock: failureBlock)
+    func getUserInfo(successBlock: ((User) -> Void)? = nil, failureBlock: (() -> Void)? = nil) -> Void {
+        let params = ["extended": "full"]
+        APIClient.shared.doRequest(method: .get, urlPath: APIClient.userProfileUrl, parameters: params,
+                                   successHandler: { data in
+                                    guard let user = (try? APIClient.shared.decoder.decode(User.self, from: data)) else {
+                                        failureBlock?(); return 
+                                    }
+                                    successBlock?(user)
+        }, failureHandler: { failureBlock?() })
     }
 }
