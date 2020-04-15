@@ -11,6 +11,6 @@ import Foundation
 extension APIClient {
     
     func authorize(successBlock: (() -> Void)? = nil, failureBlock: ((_ error: NSError) -> Void)? = nil) -> Void {
-        APIClient.shared.authorizeUser(successBlock: successBlock, failureBlock: failureBlock)
+        APIClient.shared.authorizeApiClient(successBlock: successBlock, failureBlock: failureBlock)
     }
 }

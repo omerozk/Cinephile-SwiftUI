@@ -35,4 +35,25 @@ extension APIClient {
         let storage = HTTPCookieStorage.shared
         storage.cookies?.forEach() { storage.deleteCookie($0) }
     }
+    
+    func authorizeApiClient(successBlock: (() -> Void)? = nil,
+                            failureBlock: ((_ error: NSError) -> Void)? = nil) -> Void {
+        oauth2.authorize { (params, error) in
+            guard error == nil else {
+                print("Authorization was canceled or went wrong: \(String(describing: error))")
+                failureBlock?(NSError())
+                return
+            }
+            guard let params = params else { failureBlock?(NSError()); return }
+            
+            print("Authorized! Access token is in `oauth2.accessToken`")
+            print("Authorized! Additional parameters: \(params)")
+            successBlock?()
+        }
+    }
+    
+    /// Call OAuth2 lib which Extracts the code from the redirect URL and exchanges it for a token.
+    func handleRedirectURL(_ redirect: URL) {
+        oauth2.handleRedirectURL(redirect)
+    }
 }

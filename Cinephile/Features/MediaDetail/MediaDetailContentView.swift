@@ -15,7 +15,7 @@ struct MediaDetailContentView: View {
     let content: String
     
     private var formatedDate: String {
-        return Date().toString(dateFormat: "E, dd MMM yyyy")
+        return releaseDate.toString(dateFormat: "E, dd MMM yyyy")
     }
 
     var body: some View {
