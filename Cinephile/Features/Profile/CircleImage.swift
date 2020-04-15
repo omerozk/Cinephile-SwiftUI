@@ -14,7 +14,7 @@ struct CircleImage: View {
     var body: some View {
         image
             .resizable()
-            .aspectRatio(contentMode: .fit)
+            .aspectRatio(1, contentMode: .fit)
             .clipShape(Circle())
             .overlay(Circle().stroke(Color.white, lineWidth: 4))
             .shadow(radius: 10)
