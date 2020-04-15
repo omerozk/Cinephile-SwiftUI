@@ -104,6 +104,7 @@
 		470F3F64243E1D6300B8DC04 /* Cinephile */ = {
 			isa = PBXGroup;
 			children = (
+				47703FBC2447601C0047B362 /* Common View */,
 				4786CD892444D35F00ACF9B0 /* Extension */,
 				4786CD59243F659000ACF9B0 /* Network */,
 				4786CD57243F656100ACF9B0 /* Features */,
@@ -123,6 +124,15 @@
 				470F3F6E243E1D6600B8DC04 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		47703FBC2447601C0047B362 /* Common View */ = {
+			isa = PBXGroup;
+			children = (
+				4786CD5C243F660B00ACF9B0 /* CircleImage.swift */,
+				4786CD5E243F6BCA00ACF9B0 /* MapView.swift */,
+			);
+			path = "Common View";
 			sourceTree = "<group>";
 		};
 		4786CD57243F656100ACF9B0 /* Features */ = {
@@ -181,8 +191,6 @@
 			isa = PBXGroup;
 			children = (
 				4786CD9224472ED200ACF9B0 /* Model */,
-				4786CD5C243F660B00ACF9B0 /* CircleImage.swift */,
-				4786CD5E243F6BCA00ACF9B0 /* MapView.swift */,
 				4786CD63243F79A200ACF9B0 /* ProfileView.swift */,
 				47703FBA24473D5C0047B362 /* ProvileViewModel.swift */,
 			);
