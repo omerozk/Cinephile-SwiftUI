@@ -38,7 +38,7 @@ struct ContentView: View {
                     }
             }
             .tag(2)
-            ProfileView()
+            ProfileView(viewModel: ProfileView.ViewModel())
                 .tabItem {
                     VStack {
                         Image("second")

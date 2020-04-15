@@ -8,38 +8,68 @@
 
 import SwiftUI
 
-struct ProfileView: View {
+struct ProfileEmptyView: View {
     var body: some View {
-        VStack {
-            MapView(coordinate: parkCoordinate)
-                .edgesIgnoringSafeArea(.top)
-                .frame(height: 300)
-            
-            CircleImage(image: Image("omer"))
-                .frame(width: 200)
-                .offset(y: -130)
-                .padding(.bottom, -130)
-
-            VStack(alignment: .leading) {
-                Text("Turtle Rock")
-                    .font(.title)
-                HStack {
-                    Text("Joshua Tree National Park")
-                        .font(.subheadline)
-                    Spacer()
-                    Text("California")
-                        .font(.subheadline)
-                }
-            }
-            .padding()
-            
-            Spacer()
-        }
-        .background(Color.red)
+        VStack { Text("Loading...") }
     }
 }
+
+struct ProfileContentView: View {
+    var user: User
+
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack() { Spacer() } // hack to make it full width
+            CircleImage(image: Image("omer"))
+                .frame(width: 100)
+                .padding(10)
+                .padding(.top, 40)
+            
+            VStack(alignment: .center) {
+                Text(user.name)
+                    .font(.title)
+                    .foregroundColor(.white)
+                Text(user.location)
+                    .font(.subheadline)
+                    .fontWeight(.light)
+                    .foregroundColor(.white)
+            }
+            .padding(0)
+            Spacer()
+        }
+        .background(VStack {
+            Image("omer")
+                .resizable()
+                .scaledToFill()
+                .frame(height: 300)
+                .clipped()
+                .blur(radius: 7, opaque: true)
+            Spacer()
+        })
+        .edgesIgnoringSafeArea(.top)
+    }
+}
+
+struct ProfileView: View {
+    @ObservedObject var viewModel: ViewModel
+    
+    private func isUserExist(user: User?) -> Bool {
+        return user != nil
+    }
+    
+    var body: some View {
+        NavigationView {
+            if viewModel.user == nil {
+                ProfileEmptyView()
+            } else {
+                ProfileContentView(user: viewModel.user!)
+            }
+        }
+    }
+}
+
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        ProfileView(viewModel: ProfileView.ViewModel())
     }
 }
