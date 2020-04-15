@@ -19,6 +19,7 @@ extension APIClient {
 
     // User
     static let userProfileUrl = "users/me"
+    static let userProfileStatsUrl = "users/me/stats"
 
     // Movies
     static let moviesTrendingUrl = "movies/trending"

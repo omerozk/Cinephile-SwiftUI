@@ -14,6 +14,7 @@
 		470F3F6F243E1D6600B8DC04 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 470F3F6E243E1D6600B8DC04 /* Preview Assets.xcassets */; };
 		470F3F72243E1D6600B8DC04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 470F3F70243E1D6600B8DC04 /* LaunchScreen.storyboard */; };
 		47703FBB24473D5C0047B362 /* ProvileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47703FBA24473D5C0047B362 /* ProvileViewModel.swift */; };
+		47703FBE244760A30047B362 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47703FBD244760A30047B362 /* Stats.swift */; };
 		4786CD5D243F660B00ACF9B0 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786CD5C243F660B00ACF9B0 /* CircleImage.swift */; };
 		4786CD5F243F6BCA00ACF9B0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786CD5E243F6BCA00ACF9B0 /* MapView.swift */; };
 		4786CD61243F792800ACF9B0 /* MoviesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786CD60243F792800ACF9B0 /* MoviesView.swift */; };
@@ -49,6 +50,7 @@
 		470F3F71243E1D6600B8DC04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		470F3F73243E1D6600B8DC04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47703FBA24473D5C0047B362 /* ProvileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvileViewModel.swift; sourceTree = "<group>"; };
+		47703FBD244760A30047B362 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		4786CD5C243F660B00ACF9B0 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		4786CD5E243F6BCA00ACF9B0 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		4786CD60243F792800ACF9B0 /* MoviesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesView.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				4786CD9024472ECF00ACF9B0 /* User.swift */,
+				47703FBD244760A30047B362 /* Stats.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4786CD8B2444D38C00ACF9B0 /* DateFormatter+iso8601Full.swift in Sources */,
+				47703FBE244760A30047B362 /* Stats.swift in Sources */,
 				4786CD8D2444DAE800ACF9B0 /* Date+StringFormatter.swift in Sources */,
 				470F3F66243E1D6300B8DC04 /* AppDelegate.swift in Sources */,
 				47703FBB24473D5C0047B362 /* ProvileViewModel.swift in Sources */,

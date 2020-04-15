@@ -20,4 +20,13 @@ extension APIClient {
                                     successBlock?(user)
         }, failureHandler: { failureBlock?() })
     }
+
+    func getUserStats(successBlock: ((Stats) -> Void)? = nil, failureBlock: (() -> Void)? = nil) -> Void {
+        APIClient.shared.doRequest(method: .get, urlPath: APIClient.userProfileStatsUrl, successHandler: { data in
+            guard let stats = (try? APIClient.shared.decoder.decode(Stats.self, from: data)) else {
+                failureBlock?(); return
+            }
+            successBlock?(stats)
+          }, failureHandler: { failureBlock?() })
+      }
 }
