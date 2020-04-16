@@ -47,8 +47,26 @@ struct Stats: Decodable {
     }
 
     struct Ratings: Decodable {
-        let total: Int
-        let distribution: [String: Int]
+        private(set) var total: Int
+        private let distribution: [String: Int]
+        var orderedDistribution: [(key: String, value: Int)] {
+            var ordered: [(key: String, value: Int)] = [(String, Int)]()
+            for dist in distribution {
+                ordered.append((key: dist.key, value: dist.value))
+            }
+            ordered = ordered.sorted(by: { Int($0.key) ?? 0 < Int($1.key) ?? 0 })
+            return ordered
+        }
+        var maxValue: Int { distribution.values.max() ?? 0 }
+        
+        private enum CodingKeys: String, CodingKey {
+            case total, distribution
+        }
+        
+        init() {
+            distribution = ["2": 23, "7": 1, "10": 9]
+            total = distribution.values.reduce(0, { $0 + $1 })
+        }
     }
 
     let movies: Medias
@@ -65,7 +83,7 @@ struct Stats: Decodable {
         seasons = Seasons(ratings: 2, comments: 31)
         episodes = Medias(plays: 123123, watched: 123, minutes: 123, collected: 123213, ratings: 1231, comments: 12312)
         network = Network(friends: 123, followers: 1233, following: 2112)
-        ratings = Ratings(total: 123, distribution: ["2": 23, "7": 1, "10": 9]) // "note": quantite
+        ratings = Ratings() // "note": quantite
     }
 }
 

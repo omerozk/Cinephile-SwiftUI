@@ -54,13 +54,13 @@ struct ProfileStatsView: View {
 
                 Divider().padding(.horizontal, -10)
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Ratings")
+                    Text("Ratings (\(String(vm.stats?.ratings.total ?? 0)))")
                         .font(.title)
                         .padding(.bottom, 6)
                     
-                    (Text("Total") + Text(" \(String(vm.stats?.ratings.total ?? 0)) ").bold())
-                        .frame(maxWidth: .infinity, alignment: .center)
-                    
+                    VBarChartView(title: "Movie and series ratings",
+                                  items: vm.stats?.ratings.orderedDistribution ?? [(String, Int)](),
+                                  maxValue: vm.stats?.ratings.maxValue ?? 0)
                 }.padding(.vertical, 20)
 
                 Spacer()
