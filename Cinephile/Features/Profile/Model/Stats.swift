@@ -13,9 +13,19 @@ struct Stats: Decodable {
         let plays: Int
         let watched: Int
         let minutes: Int
+        var formatedTime: String { minutesToDaysHoursMinutes(minutes: minutes) }
         let collected: Int
         let ratings: Int
         let comments: Int
+        
+        private func minutesToDaysHoursMinutes (minutes : Int) -> String {
+            let seconds = minutes * 60
+            let formatter = DateComponentsFormatter()
+            formatter.allowedUnits = [.day, .hour, .minute]
+            formatter.unitsStyle = .abbreviated
+            return formatter.string(from: TimeInterval(seconds)) ?? "0"
+        }
+
     }
     
     struct Shows: Decodable {
@@ -41,12 +51,12 @@ struct Stats: Decodable {
         let distribution: [String: Int]
     }
 
-    private let movies: Medias
-    private let shows: Shows
-    private let seasons: Seasons
-    private let episodes: Medias
-    private let network: Network
-    private let ratings: Ratings
+    let movies: Medias
+    let shows: Shows
+    let seasons: Seasons
+    let episodes: Medias
+    let network: Network
+    let ratings: Ratings
     
     /// mock model
     init() {
