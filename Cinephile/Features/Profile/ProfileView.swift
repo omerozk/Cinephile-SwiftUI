@@ -14,42 +14,6 @@ struct ProfileEmptyView: View {
     }
 }
 
-struct ProfileContentView: View {
-    var user: User
-
-    var body: some View {
-        VStack(spacing: 0) {
-            HStack() { Spacer() } // hack to make it full width
-            CircleImage(image: Image("omer"))
-                .frame(width: 100)
-                .padding(10)
-                .padding(.top, 40)
-            
-            VStack(alignment: .center) {
-                Text(user.name)
-                    .font(.title)
-                    .foregroundColor(.white)
-                Text(user.location)
-                    .font(.subheadline)
-                    .fontWeight(.light)
-                    .foregroundColor(.white)
-            }
-            .padding(0)
-            Spacer()
-        }
-        .background(VStack {
-            Image("omer")
-                .resizable()
-                .scaledToFill()
-                .frame(height: 300)
-                .clipped()
-                .blur(radius: 7, opaque: true)
-            Spacer()
-        })
-        .edgesIgnoringSafeArea(.top)
-    }
-}
-
 struct ProfileView: View {
     @ObservedObject var viewModel: ViewModel
     
