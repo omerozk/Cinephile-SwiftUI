@@ -11,4 +11,6 @@ import Foundation
 extension APIClient {
     static let clientId = ""
     static let clientSecret = ""
+    
+    static let tmdbApiKey = ""
 }

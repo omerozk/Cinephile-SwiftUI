@@ -10,6 +10,8 @@ import Foundation
 
 extension APIClient {
     static let hostUrl = "https://api.trakt.tv/"
+    static let imagesAPIHostUrl = "https://api.themoviedb.org/3/"
+    static let imageHostUrl = "https://image.tmdb.org/t/p/original/"
 
     // MARK: - API URL
 
@@ -24,4 +26,8 @@ extension APIClient {
     // Movies
     static let moviesTrendingUrl = "movies/trending"
     static let moviesPopularUrl = "movies/popular"
+    
+    // Media Fanart.tv
+    static let getMovieImagesUrl = "movie/%@/images"
+    static let getSeriesImagesUrl = "tv"
 }

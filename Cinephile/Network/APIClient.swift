@@ -77,6 +77,25 @@ class APIClient {
         return CRequest(request: request)
     }
     
+    
+    @discardableResult func doPublicRequest(method: Alamofire.HTTPMethod, urlPath: String,
+                                            parameters: [String: Any]? = nil,
+                                            successHandler: @escaping (Data) -> Void,
+                                            failureHandler: @escaping () -> Void) -> CRequest? {
+        //        guard isNetworkReachable else { failureHandler(APIError.noInternetError()); return nil }
+        let headers = HTTPHeaders([HTTPHeader(name: "Content-Type", value: "application/json")])
+
+        let request = sessionManager.request(urlPath, method: method, parameters: parameters, headers: headers)
+        
+        request.validate().responseString { (response) in
+            print("PUblic Req: \(method.rawValue.uppercased()): \(response.response?.statusCode ?? 0): " +
+                "\(urlPath)  \n  ----  \n response: \(response)")
+            self.manageResponse(response: response, successHandler: successHandler,
+                                failureHandler: failureHandler)
+        }
+        return CRequest(request: request)
+    }
+    
     private func manageResponse(response: AFDataResponse<String>,
                                 successHandler: @escaping (Data) -> Void,
                                 failureHandler: @escaping () -> Void) {
