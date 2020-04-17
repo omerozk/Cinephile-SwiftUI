@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import KingfisherSwiftUI
 
 struct ProfileContentView: View {
     var user: User
@@ -15,7 +16,7 @@ struct ProfileContentView: View {
         VStack {
             VStack(spacing: 0) {
                 HStack() { Spacer() } // hack to make it full width
-                CircleImage(image: Image("omer"))
+                CircleImage(image: Image("user-placeholder"), url: URL(string: user.images?.avatar?.full ?? ""))
                     .frame(width: 100)
                     .padding(10)
                     .padding(.top, 40)
@@ -40,15 +41,23 @@ struct ProfileContentView: View {
                         .lineLimit(3)
                         .padding(.top, 4)
                 }
+                .background(Color.black.opacity(0.4).cornerRadius(10))
                 .padding(0)
             }
             .background(VStack {
-                Image("omer")
+                KFImage(URL(string: user.images?.avatar?.full ?? ""), options: [.forceRefresh])
+                    .placeholder({
+                        Image("media-placeholder")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 300)
+                            .blur(radius: 7, opaque: false)
+                    })
                     .resizable()
                     .scaledToFill()
                     .frame(height: 300)
                     .clipped()
-                    .blur(radius: 7, opaque: true)
+                    .blur(radius: 7, opaque: false)
                 Spacer()
             })
                 .edgesIgnoringSafeArea(.top)
