@@ -24,11 +24,6 @@ struct MediaIds: Decodable {
     let tvdb: Int?
 }
 
-protocol Media: Identifiable {
-    var ids: MediaIds { get }
-    var id: Int { get }
-}
-
 struct Movie: Decodable {
     enum ReleaseStatus: String, Codable {
         case released, inProduction = "in production", postProduction = "post production", planned, rumored, canceled
@@ -53,8 +48,8 @@ struct Movie: Decodable {
     
     let runtime: Int
     let country: String
-    private let trailer: String
-    private let homepage: String
+    private let trailer: String?
+    private let homepage: String?
     let status: ReleaseStatus
     let rating: Float
     let votes: Int
@@ -62,7 +57,7 @@ struct Movie: Decodable {
     let updatedAt: Date
     let language: String
     let genres: [String]
-    let certification: String
+    let certification: String?
     
     /// mock model
     init() {
@@ -116,4 +111,3 @@ extension Movie {
 //\"available_translations\":[\"ar\",\"bg\",\"bs\",\"cs\",\"da\",\"de\",\"el\",\"en\",\"es\",\"fa\",\"fi\",\"fr\",\"he\",\"hr\",\"hu\",\"id\",\"it\",\"ja\",\"ka\",\"ko\",\"ky\",\"lt\",\"lv\",\"mk\",\"ml\",\"nb\",\"nl\",\"no\",\"pl\",\"ps\",\"pt\",\"ro\",\"ru\",\"sk\",\"sl\",\"sr\",\"sv\",\"th\",\"tr\",\"uk\",\"ur\",\"uz\",\"vi\",\"xx\",\"zh\"],
 //\"genres\":[\"action\",\"adventure\",\"comedy\",\"superhero\"],
 //\"certification\":\"R\"}
-

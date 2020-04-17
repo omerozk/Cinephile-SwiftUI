@@ -10,9 +10,13 @@ import Foundation
 
 extension APIClient {
     
-    func trendingMovies(successBlock: (() -> Void)? = nil, failureBlock: (() -> Void)? = nil) -> Void {
-        APIClient.shared.doRequest(method: .get, urlPath: APIClient.moviesTrendingUrl, successHandler: { data in
-            successBlock?()
+    func trendingMovies(successBlock: (([Movie]) -> Void)? = nil, failureBlock: (() -> Void)? = nil) -> Void {
+        let params: [String : Any] = ["page": 1, "limit": 20, "extended": "full"]
+        APIClient.shared.doRequest(method: .get, urlPath: APIClient.moviesTrendingUrl, parameters: params,
+                                   successHandler: { data in
+                                    let trend: [Trending] = (try? APIClient.shared.decoder.decode([Trending].self,
+                                                                                                  from: data)) ?? []
+                                    successBlock?(trend.compactMap({ $0.movie }))
         }, failureHandler: { failureBlock?() })
     }
     
@@ -20,7 +24,8 @@ extension APIClient {
         let params: [String : Any] = ["page": 1, "limit": 20, "extended": "full"]
         APIClient.shared.doRequest(method: .get, urlPath: APIClient.moviesPopularUrl, parameters: params,
                                    successHandler: { data in
-                                    let movies: [Movie] = (try? APIClient.shared.decoder.decode([Movie].self, from: data)) ?? []
+                                    let movies: [Movie] = (try? APIClient.shared.decoder.decode([Movie].self,
+                                                                                                from: data)) ?? []
                                     successBlock?(movies)
         }, failureHandler: { failureBlock?() })
     }
