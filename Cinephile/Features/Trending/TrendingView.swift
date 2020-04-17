@@ -13,13 +13,20 @@ struct TrendingView: View {
 
     var body: some View {
         NavigationView {
-            List(viewModel.movies, id: \.ids.id, rowContent: { movie in
+            List(viewModel.enumeratedMovies, id: \.element.ids.id, rowContent: { index, movie in
                 NavigationLink(destination: MediaDetailView(movie: movie)) {
                     MovieRow(movie: movie)
+                }.onAppear {
+                    self.getNextPageIfNecessary(index: index, totalItems: self.viewModel.enumeratedMovies.count)
                 }
             })
-            .navigationBarTitle(Text("Movies"))
+            .navigationBarTitle(Text("Trending Movies"))
         }
+    }
+    
+    private func getNextPageIfNecessary(index: Int, totalItems: Int) {
+        guard !self.viewModel.noMoreData && index == totalItems - 5 else { return }
+        self.viewModel.loadNextPage()
     }
 }
 

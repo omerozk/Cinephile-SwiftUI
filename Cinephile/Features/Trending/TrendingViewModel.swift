@@ -8,20 +8,46 @@
 
 import Foundation
 
+protocol Paginated {
+    var page: Int { get set }
+    var noMoreData: Bool { get set }
+    
+    func loadNextPage()
+}
+
 extension TrendingView {
-    class ViewModel: ObservableObject {
+    class ViewModel: ObservableObject, Paginated {
         @Published private(set) var movies: [Movie] = []
+        
+        var enumeratedMovies: [EnumeratedSequence<[Movie]>.Element] {
+            movies.enumerated().map({ $0 })
+        }
+        
+        var page: Int = 1
+        var noMoreData: Bool = true
         
         init() {
             loadTrendingMovies()
         }
         
-        func loadTrendingMovies() {
-            APIClient.shared.trendingMovies(successBlock: { [weak self] results in
-                self?.movies = results
+        private func loadTrendingMovies(overrideData: Bool = true) {
+            let limit = 20
+            
+            APIClient.shared.trendingMovies(page: page, successBlock: { [weak self] results in
+                self?.noMoreData = results.count < limit
+                if overrideData {
+                    self?.movies = results
+                } else {
+                    self?.movies.append(contentsOf: results)
+                }
             }, failureBlock: {
                 
             })
+        }
+        
+        func loadNextPage() {
+            page += 1
+            loadTrendingMovies(overrideData: false)
         }
 
     }
