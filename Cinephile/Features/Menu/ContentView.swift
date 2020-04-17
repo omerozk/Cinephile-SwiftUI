@@ -17,19 +17,10 @@ struct ContentView: View {
                 .tabItem {
                     VStack {
                         Image("first")
-                        Text("Watched Movies")
+                        Text("Watched")
                     }
             }
             .tag(0)
-            Text("Series")
-                .font(.title)
-                .tabItem {
-                    VStack {
-                        Image("second")
-                        Text("Watched Series")
-                    }
-                }
-                .tag(1)
             TrendingView()
                 .tabItem {
                     VStack {
@@ -37,7 +28,7 @@ struct ContentView: View {
                         Text("Trending")
                     }
             }
-            .tag(2)
+            .tag(1)
             ProfileView(viewModel: ProfileView.ViewModel())
                 .tabItem {
                     VStack {
@@ -45,7 +36,7 @@ struct ContentView: View {
                         Text("Profile")
                     }
                 }
-                .tag(3)
+            .tag(2)
         }
     }
 }
