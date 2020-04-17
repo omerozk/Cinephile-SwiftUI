@@ -7,24 +7,27 @@
 //
 
 import SwiftUI
+import KingfisherSwiftUI
 
 // https://blckbirds.com/post/stretchy-header-and-parallax-scrolling-in-swiftui/
 struct ParallaxHeaderView: View {
-    var image: Image
-    var headerHeight: CGFloat = 400
+    var imageUrl: URL?
+    var headerHeight: CGFloat = 300
     
     var body: some View {
         GeometryReader { geometry in
             VStack {
                 if geometry.frame(in: .global).minY <= 0 {
-                    self.image
+                    KFImage(self.imageUrl)
+                        .placeholder({ Image("media-placeholder") })
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
+                        .scaledToFill()
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .offset(y: geometry.frame(in: .global).minY/7)
                         .clipped()
                 } else {
-                    self.image
+                    KFImage(self.imageUrl)
+                        .placeholder({ Image("media-placeholder") })
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: geometry.size.width, height: geometry.size.height +
@@ -40,6 +43,6 @@ struct ParallaxHeaderView: View {
 
 struct ParallaxHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        ParallaxHeaderView(image: Image("omer"))
+        ParallaxHeaderView(imageUrl: URL(string: "https://image.tmdb.org/t/p/original/emesWTuGpaLOUfs0sZ6UFnn1ZHm.jpg"))
     }
 }

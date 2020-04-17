@@ -14,7 +14,7 @@ struct TrendingView: View {
     var body: some View {
         NavigationView {
             List(viewModel.enumeratedMovies, id: \.element.ids.id, rowContent: { index, movie in
-                NavigationLink(destination: MediaDetailView(movie: movie)) {
+                NavigationLink(destination: MediaDetailView(viewModel: MediaDetailView.ViewModel(movie: movie))) {
                     MovieRow(movie: movie)
                 }.onAppear {
                     self.getNextPageIfNecessary(index: index, totalItems: self.viewModel.enumeratedMovies.count)

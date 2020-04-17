@@ -15,8 +15,10 @@ struct MoviesView: View {
     var body: some View {
         NavigationView {
             List(viewModel.movies, id: \.ids.id, rowContent: { movie in
-                NavigationLink(destination: MediaDetailView(movie: movie)) {
+                NavigationLink(destination: MediaDetailView(viewModel: MediaDetailView.ViewModel(movie: movie))) {
                     MovieRow(movie: movie)
+                }.onAppear() {
+                    self.viewModel.loadImageFor(movie: movie)
                 }
             })
             .navigationBarTitle(Text("Movies"))

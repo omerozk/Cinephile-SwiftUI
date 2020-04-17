@@ -19,5 +19,14 @@ extension MoviesView {
                 
             })
         }
+        
+        func loadImageFor(movie: Movie) {
+            guard let id = movie.ids.tmdb else { return }
+            APIClient.shared.getMovieImageUrl(tmdbId: id, successBlock: { (url) in
+                
+            }, failureBlock: {
+                
+            })
+        }
     }
 }
