@@ -47,7 +47,7 @@ struct Movie: Decodable {
     }
     
     let runtime: Int
-    let country: String
+    let country: String?
     private let trailer: String?
     private let homepage: String?
     let status: ReleaseStatus

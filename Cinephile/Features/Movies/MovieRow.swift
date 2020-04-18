@@ -30,7 +30,8 @@ struct MovieRow: View {
                 Text("•").textStyle(CSmallStyle())
                 Spacer()
                 
-                Text(movie.country.uppercased() + "  -  " + String(movie.runtime) + " min").textStyle(CSmallStyle())
+                Text((movie.country?.uppercased() ?? "N/A")  + "  -  " + String(movie.runtime) + " min")
+                    .textStyle(CSmallStyle())
                 
                 Spacer()
                 Text("•").textStyle(CSmallStyle())
