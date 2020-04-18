@@ -10,14 +10,12 @@ import SwiftUI
 
 struct MediaDetailView: View {
     var viewModel: ViewModel
-//    var movie: Movie
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
                 ParallaxHeaderView(imageUrl: viewModel.imageUrl)
-                MediaDetailContentView(title: viewModel.movie.title, runtime: viewModel.movie.runtime,
-                                       releaseDate: viewModel.movie.releaseDate, content: viewModel.movie.overview)
+                MediaDetailContentView(movie: viewModel.movie)
                     .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
             }
         }

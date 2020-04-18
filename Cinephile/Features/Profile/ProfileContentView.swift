@@ -45,7 +45,7 @@ struct ProfileContentView: View {
                 .padding(0)
             }
             .background(VStack {
-                KFImage(URL(string: user.images?.avatar?.full ?? ""), options: [.forceRefresh])
+                KFImage(URL(string: user.images?.avatar?.full ?? ""))
                     .placeholder({
                         Image("media-placeholder")
                             .resizable()

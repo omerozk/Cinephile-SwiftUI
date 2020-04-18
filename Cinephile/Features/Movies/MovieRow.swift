@@ -11,13 +11,33 @@ import SwiftUI
 struct MovieRow: View {
     var movie: Movie
     
+    private var formatedDate: String {
+        return movie.releaseDate.toString(dateFormat: "dd/MMM/yyyy")
+    }
+
     var body: some View {
-        HStack {
-            movie.image
-                .resizable()
-                .frame(width: 50, height: 50)
+        VStack(alignment: .leading, spacing: 2) {
             Text(movie.title)
-            Spacer()
+                .font(.custom("HelveticaNeue-Bold", size: 24))
+                .lineLimit(2)
+            Text(movie.tagline)
+                .font(.custom("HelveticaNeue", size: 14))
+                .foregroundColor(Color.appPaleBlue)
+            HStack {
+                Text(self.formatedDate).textStyle(CSmallStyle())
+                
+                Spacer()
+                Text("•").textStyle(CSmallStyle())
+                Spacer()
+                
+                Text(movie.country.uppercased() + "  -  " + String(movie.runtime) + " min").textStyle(CSmallStyle())
+                
+                Spacer()
+                Text("•").textStyle(CSmallStyle())
+                Spacer()
+                
+                Text(String(format: "%.2f (%d votes)", movie.rating, movie.votes) ).textStyle(CSmallStyle())
+            }
         }
         .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
     }
@@ -28,6 +48,6 @@ struct MovieRow_Previews: PreviewProvider {
         Group {
             MovieRow(movie: Movie())
         }
-        .previewLayout(.fixed(width: 300, height: 70))
+        .previewLayout(.fixed(width: 300, height: 80))
     }
 }

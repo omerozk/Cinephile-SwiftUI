@@ -51,6 +51,7 @@
 		4786CD8D2444DAE800ACF9B0 /* Date+StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786CD8C2444DAE700ACF9B0 /* Date+StringFormatter.swift */; };
 		4786CD8F24472C2900ACF9B0 /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786CD8E24472C2900ACF9B0 /* RequestInterceptor.swift */; };
 		4786CD9124472ECF00ACF9B0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4786CD9024472ECF00ACF9B0 /* User.swift */; };
+		47A0413E244B047F001CEF68 /* Text+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A0413D244B047F001CEF68 /* Text+Style.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +97,7 @@
 		4786CD8C2444DAE700ACF9B0 /* Date+StringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+StringFormatter.swift"; sourceTree = "<group>"; };
 		4786CD8E24472C2900ACF9B0 /* RequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInterceptor.swift; sourceTree = "<group>"; };
 		4786CD9024472ECF00ACF9B0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		47A0413D244B047F001CEF68 /* Text+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Style.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,6 +286,7 @@
 				476EB8F7244895C000F59E33 /* Color+hex.swift */,
 				4786CD8A2444D38C00ACF9B0 /* DateFormatter+iso8601Full.swift */,
 				4786CD8C2444DAE700ACF9B0 /* Date+StringFormatter.swift */,
+				47A0413D244B047F001CEF68 /* Text+Style.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				476EB8FA244906DF00F59E33 /* VBarChartView.swift in Sources */,
 				4786CD772440A70900ACF9B0 /* APIClient+User.swift in Sources */,
 				476EB8F124487BE200F59E33 /* ProfileStatsView.swift in Sources */,
+				47A0413E244B047F001CEF68 /* Text+Style.swift in Sources */,
 				4786CD882443866200ACF9B0 /* MediaDetailContentView.swift in Sources */,
 				4786CD6E243FB4CB00ACF9B0 /* MediaDetailView.swift in Sources */,
 				4786CD802440F35D00ACF9B0 /* APIClient+Movies.swift in Sources */,

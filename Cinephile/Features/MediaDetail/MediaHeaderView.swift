@@ -24,10 +24,10 @@ struct MediaHeaderView: View {
                     .cornerRadius(10)
                 VStack(alignment: .leading) {
                     Text(self.title)
-                        .font(.custom("AvenirNext-Demibold", size: 20))
+                        .font(.custom("HelveticaNeue-Bold", size: 20))
                         .lineLimit(2)
                     Text("Release date: \(String(self.year))")
-                        .font(.custom("AvenirNext-Regular", size: 13))
+                        .font(.custom("HelveticaNeue", size: 13))
                         .foregroundColor(.gray)
                 }
             }

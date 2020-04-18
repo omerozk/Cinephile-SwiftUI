@@ -9,37 +9,40 @@
 import SwiftUI
 
 struct MediaDetailContentView: View {
-    let title: String
-    let runtime: Int
-    let releaseDate: Date
-    let content: String
+    let movie: Movie
     
     private var formatedDate: String {
-        return releaseDate.toString(dateFormat: "E, dd MMM yyyy")
+        return movie.releaseDate.toString(dateFormat: "E, dd MMM yyyy")
     }
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(title)
-                .font(.custom("AvenirNext-Bold", size: 30))
+            Text(movie.title)
+                .font(.custom("HelveticaNeue-Bold", size: 30))
                 .lineLimit(nil)
                 .padding(.top, 10)
-            Text("\(formatedDate)   •   \(runtime) min")
-                .font(.custom("AvenirNext-Regular", size: 15))
+            Text("\(formatedDate)   •   \(movie.runtime) min")
+                .font(.custom("HelveticaNeue", size: 15))
                 .foregroundColor(.gray)
                 .padding(.top, 4)
-            Text(content)
-                .font(.custom("AvenirNext-Regular", size: 20))
+            Text(movie.genres.reduce(String(), {
+                if $0 == "" { return $0 + $1.capitalized }
+                return  "\($0)  -  \($1.capitalized)"
+            }))
                 .lineLimit(nil)
-                .padding(.top, 20)
+                .font(.custom("HelveticaNeue", size: 15))
+                .foregroundColor(.gray)
+                .padding(.top, 4)
+            Text(movie.overview)
+                .font(.custom("HelveticaNeue", size: 20))
+                .lineLimit(nil)
+                .padding(.vertical, 20)
         }
     }
 }
 
 struct MediaDetailContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let movie = Movie()
-        return MediaDetailContentView(title: movie.title, runtime: movie.runtime,
-                                      releaseDate: movie.releaseDate, content: movie.overview)
+        return MediaDetailContentView(movie: Movie())
     }
 }

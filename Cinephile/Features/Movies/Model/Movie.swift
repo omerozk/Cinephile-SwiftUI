@@ -62,7 +62,7 @@ struct Movie: Decodable {
     /// mock model
     init() {
         ids = MediaIds(id: 1, slug: "deadpool", imdb: nil, tmdb: nil, tvdb: nil)
-        title = "Deadpool"
+        title = "Deadpool with a 2 line name hah"
         year = 2010
         tagline = "Witness the beginning of a happy ending"
         overview = "Deadpool tells the origin story of former Special Forces operative turned mercenary Wade Wilson, " +
@@ -82,13 +82,6 @@ struct Movie: Decodable {
         language = "en"
         genres = ["action","adventure","comedy","superhero"]
         certification = "R"
-    }
-}
-
-extension Movie {
-    var image: Image {
-        Image("omer")
-//        ImageStore.shared.image(name: imageName)
     }
 }
 
