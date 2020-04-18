@@ -615,24 +615,24 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.13.4;
+				kind = exactVersion;
+				version = 5.13.4;
 			};
 		};
 		4786CD6F244097AB00ACF9B0 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.1.0;
+				kind = exactVersion;
+				version = 5.1.0;
 			};
 		};
 		4786CD782440B1B500ACF9B0 /* XCRemoteSwiftPackageReference "OAuth2" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/p2/OAuth2.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.2.0;
+				kind = exactVersion;
+				version = 5.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
