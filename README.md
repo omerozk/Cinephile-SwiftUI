@@ -12,6 +12,7 @@ Limitation observed:
 - TabView don't go to root view on tap of tabItem (when in a pushed view)
 - Can't create ImageStyle (like ButtonStyle)
 - Xcode Preview crash often
+- Default swipe to go back broken
 
 ## Technology
 
