@@ -9,10 +9,11 @@
 import Foundation
 
 extension APIClient {
+    static let moviesPageLimit = 20
     
     func trendingMovies(page: Int = 1,
                         successBlock: (([Movie]) -> Void)? = nil, failureBlock: (() -> Void)? = nil) -> Void {
-        let params: [String : Any] = ["page": page, "limit": 20, "extended": "full"]
+        let params: [String : Any] = ["page": page, "limit": APIClient.moviesPageLimit, "extended": "full"]
         APIClient.shared.doRequest(method: .get, urlPath: APIClient.moviesTrendingUrl, parameters: params,
                                    successHandler: { data in
                                     let trend: [Trending] = (try? APIClient.shared.decoder.decode([Trending].self,
@@ -22,7 +23,7 @@ extension APIClient {
     }
     
     func popularMovies(successBlock: (([Movie]) -> Void)? = nil, failureBlock: (() -> Void)? = nil) -> Void {
-        let params: [String : Any] = ["page": 1, "limit": 20, "extended": "full"]
+        let params: [String : Any] = ["page": 1, "limit": APIClient.moviesPageLimit, "extended": "full"]
         APIClient.shared.doRequest(method: .get, urlPath: APIClient.moviesPopularUrl, parameters: params,
                                    successHandler: { data in
                                     let movies: [Movie] = (try? APIClient.shared.decoder.decode([Movie].self,

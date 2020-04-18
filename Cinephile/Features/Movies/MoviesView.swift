@@ -10,15 +10,16 @@ import SwiftUI
 
 struct MoviesView: View {
     
-    @ObservedObject var viewModel: MoviesViewModel
+    @ObservedObject var viewModel: ViewModel
 
     var body: some View {
         NavigationView {
-            List(viewModel.movies, id: \.ids.id, rowContent: { movie in
+            // use offset because \.element.ids.id can be duplicate (some movies are sent twice)
+            List(viewModel.enumeratedMovies, id: \.offset, rowContent: { index, movie in
                 NavigationLink(destination: MediaDetailView(viewModel: MediaDetailView.ViewModel(movie: movie))) {
                     MovieRow(movie: movie)
-                }.onAppear() {
-                    self.viewModel.loadImageFor(movie: movie)
+                }.onAppear {
+                    self.getNextPageIfNecessary(index: index, totalItems: self.viewModel.enumeratedMovies.count)
                 }
             })
             .navigationBarTitle(Text("Movies"))
@@ -27,10 +28,15 @@ struct MoviesView: View {
             }
         }
     }
+    
+    private func getNextPageIfNecessary(index: Int, totalItems: Int) {
+        guard !self.viewModel.noMoreData && index == totalItems - 5 else { return }
+        self.viewModel.loadNextPage()
+    }
 }
 
 struct MoviesView_Previews: PreviewProvider {
     static var previews: some View {
-        MoviesView(viewModel: MoviesView.MoviesViewModel())
+        MoviesView(viewModel: MoviesView.ViewModel())
     }
 }

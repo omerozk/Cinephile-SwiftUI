@@ -13,7 +13,8 @@ struct TrendingView: View {
 
     var body: some View {
         NavigationView {
-            List(viewModel.enumeratedMovies, id: \.element.ids.id, rowContent: { index, movie in
+            // use offset because \.element.ids.id can be duplicate (some movies are sent twice)
+            List(viewModel.enumeratedMovies, id: \.offset, rowContent: { index, movie in
                 NavigationLink(destination: MediaDetailView(viewModel: MediaDetailView.ViewModel(movie: movie))) {
                     MovieRow(movie: movie)
                 }.onAppear {

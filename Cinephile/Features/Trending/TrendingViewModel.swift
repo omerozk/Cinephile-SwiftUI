@@ -11,6 +11,7 @@ import Foundation
 protocol Paginated {
     var page: Int { get set }
     var noMoreData: Bool { get set }
+    var isLoading: Bool { get set }
     
     func loadNextPage()
 }
@@ -25,23 +26,24 @@ extension TrendingView {
         
         var page: Int = 1
         var noMoreData: Bool = true
+        var isLoading: Bool = false
         
         init() {
             loadTrendingMovies()
         }
         
         private func loadTrendingMovies(overrideData: Bool = true) {
-            let limit = 20
-            
+            self.isLoading = true
             APIClient.shared.trendingMovies(page: page, successBlock: { [weak self] results in
-                self?.noMoreData = results.count < limit
+                self?.isLoading = false
+                self?.noMoreData = results.count < APIClient.moviesPageLimit
                 if overrideData {
                     self?.movies = results
                 } else {
                     self?.movies.append(contentsOf: results)
                 }
-            }, failureBlock: {
-                
+            }, failureBlock: { [weak self] in
+                self?.isLoading = false
             })
         }
         
