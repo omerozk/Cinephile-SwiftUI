@@ -16,7 +16,7 @@ struct ContentView: View {
             MoviesView(viewModel: MoviesView.ViewModel())
                 .tabItem {
                     VStack {
-                        Image("first")
+                        Image("watched")
                         Text("Watched")
                     }
             }
@@ -24,7 +24,7 @@ struct ContentView: View {
             TrendingView()
                 .tabItem {
                     VStack {
-                        Image("first")
+                        Image("trend")
                         Text("Trending")
                     }
             }
@@ -32,7 +32,7 @@ struct ContentView: View {
             ProfileView(viewModel: ProfileView.ViewModel())
                 .tabItem {
                     VStack {
-                        Image("second")
+                        Image("user")
                         Text("Profile")
                     }
                 }

@@ -37,7 +37,7 @@ struct MediaHeaderView: View {
 
 struct MediaHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        MediaHeaderView(image: Image("omer"), title: "Batman", year: 2005)
+        MediaHeaderView(image: Image("media-placeholder"), title: "Batman", year: 2005)
             .previewLayout(.sizeThatFits)
     }
 }

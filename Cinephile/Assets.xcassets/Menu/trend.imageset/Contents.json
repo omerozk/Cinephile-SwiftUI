@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "IMG_20161128_111709.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "trend.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
