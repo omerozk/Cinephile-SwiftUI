@@ -22,7 +22,7 @@ struct MoviesView: View {
                     self.getNextPageIfNecessary(index: index, totalItems: self.viewModel.enumeratedMovies.count)
                 }
             })
-            .navigationBarTitle(Text("Movies"))
+            .navigationBarTitle(Text("Movies"), displayMode: .inline)
                 .onAppear {
                     self.viewModel.loadPopularMovies()
             }

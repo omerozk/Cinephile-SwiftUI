@@ -21,7 +21,7 @@ struct TrendingView: View {
                     self.getNextPageIfNecessary(index: index, totalItems: self.viewModel.enumeratedMovies.count)
                 }
             })
-            .navigationBarTitle(Text("Trending Movies"))
+                .navigationBarTitle(Text("Trending Movies"), displayMode: .inline)
         }
     }
     
